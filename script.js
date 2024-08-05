@@ -8,7 +8,12 @@ let asteroid = document.createElement("img");
 asteroid.style.width = "50px"; 
 asteroid.style.height = "50px";
 asteroid.src = "asteroid-icon-flat-style-vector.jpg";
+let asteroid1 = document.createElement("img");
+asteroid1.style.width = "50px"; 
+asteroid1.style.height = "50px";
+asteroid1.src = "asteroid-icon-flat-style-vector.jpg";
 document.getElementById("143").appendChild(asteroid);
+document.getElementById("147").appendChild(asteroid1);
 
 let maxLeft = 151;
 let maxRight = 165;
