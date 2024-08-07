@@ -1,3 +1,5 @@
+const SREEN_WIDTH = window.screen.width;
+
 let fighterJet = document.createElement("img");
 fighterJet.style.width = "50px"; 
 fighterJet.style.height = "50px";
@@ -43,3 +45,19 @@ window.addEventListener("keydown", function (event) {
   
     event.preventDefault();
   }, true);
+
+  function adjustZoom() {  
+    let zoomLevel = 1;
+    if (SREEN_WIDTH > 1920) {
+        zoomLevel = 1.25; // Zoom in for larger screens
+    } else if (SREEN_WIDTH < 1280) {
+        zoomLevel = 0.75; // Zoom out for smaller screens
+    } else if (SREEN_WIDTH < 768) {
+        zoomLevel = 0.50; // Zoom out for smaller screens
+    }
+    document.body.style.transform = `scale(${zoomLevel})`;
+    document.body.style.transformOrigin = '0 0';
+}
+
+window.onload = adjustZoom;
+window.onresize = adjustZoom;
