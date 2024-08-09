@@ -6,10 +6,8 @@ const MAX_POS = 165;
 const TEN = 10;
 
 function adjustZoom() {  
-    let zoomLevel = 1;
-    if (SCREEN_WIDTH > 1920) {
-        zoomLevel = 1.25; 
-    } else if (SCREEN_WIDTH < 1280) {
+    let zoomLevel = 1; 
+    if (SCREEN_WIDTH < 1280) {
         zoomLevel = 0.75; 
     } else if (SCREEN_WIDTH < 768) {
         zoomLevel = 0.50;
@@ -19,7 +17,6 @@ function adjustZoom() {
 }
 
 window.onload = adjustZoom;
-window.onresize = adjustZoom;
 
 let jetLocation = 158;
 let fighterJet = document.createElement("img");
@@ -51,11 +48,6 @@ window.addEventListener("keydown", function (moveJet) {
     moveJet.preventDefault();
   }, true);
 
-let asteorids = ["asteroid1", "asteroid2", "asteroid3", "asteroid4", "asteroid5"
-    , "asteroid6", "asteroid7","asteroid8", "asteroid9", "asteroid10", 
-    "asteroid11", "asteroid12", "asteroid13", "asteroid14", "asteroid15",
-    "asteroid16", "asteroid17", "asteroid18", "asteroid19", "asteroid20",
-    "asteroid21",  "asteroid22"];
 let asteroid1 = document.createElement("img");
 asteroid1.style.width = "50px"; 
 asteroid1.style.height = "50px";
@@ -145,149 +137,172 @@ asteroid22.style.width = "50px";
 asteroid22.style.height = "50px";
 asteroid22.src = "asteroid-icon-flat-style-vector.jpg";
 
-let clickCounter = 0;
-let startPosition = [8, 14, 4, 11, 2, 6, 9, 12, 1, 5, 7, 8, 10, 15, 3, 13, 5, 11, 7, 9
-    , 2, 14];
+let asteroidPositions = [8, 14, 4, 11, 2, 6, 9, 12, 1, 5, 7, 8, 10, 15, 3, 13, 5
+    , 11, 7, 9, 2, 14];
+let time = 0;
+let intervalID;
 
-function asteoridShower () {
-    ++clickCounter;    
-    if (clickCounter <= 1) {
-        document.getElementById(startPosition[0]).appendChild(asteroid1);
-        document.getElementById(startPosition[1]).appendChild(asteroid2);
+function increaseTime() {    
+    ++time;
+    document.getElementById("Time").innerHTML = time;
+    asteoridShower();
+    checkCollision();    
+}
+    
+function startTimer() {
+    document.getElementById("Time").innerHTML = "0";
+    intervalID = setInterval(increaseTime, 1000);    
+}
+
+function asteoridShower() {       
+    if (time <= 1) {
+        document.getElementById(asteroidPositions[0]).appendChild(asteroid1);
+        document.getElementById(asteroidPositions[1]).appendChild(asteroid2);
     } else {        
-        startPosition[0] += ASTEROID_FALL;
-        startPosition[1] += ASTEROID_FALL;
-        if (startPosition[0] > MAX_POS) {
-            startPosition[0] -= ASTEROID_FALL * TEN;
-            startPosition[1] -= ASTEROID_FALL * TEN;
+        asteroidPositions[0] += ASTEROID_FALL;
+        asteroidPositions[1] += ASTEROID_FALL;
+        if (asteroidPositions[0] > MAX_POS) {
+            asteroidPositions[0] -= ASTEROID_FALL * TEN;
+            asteroidPositions[1] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[0]).appendChild(asteroid1);
-        document.getElementById(startPosition[1]).appendChild(asteroid2);   
+        document.getElementById(asteroidPositions[0]).appendChild(asteroid1);
+        document.getElementById(asteroidPositions[1]).appendChild(asteroid2);   
     }
-    if (clickCounter === 2) {
-        document.getElementById(startPosition[2]).appendChild(asteroid3);
-        document.getElementById(startPosition[3]).appendChild(asteroid4);
-    } else if (clickCounter > 2) {
-        startPosition[2] += ASTEROID_FALL;
-        startPosition[3] += ASTEROID_FALL;
-        if (startPosition[2] > MAX_POS) {
-            startPosition[2] -= ASTEROID_FALL * TEN;
-            startPosition[3] -= ASTEROID_FALL * TEN;
+    if (time === 2) {
+        document.getElementById(asteroidPositions[2]).appendChild(asteroid3);
+        document.getElementById(asteroidPositions[3]).appendChild(asteroid4);
+    } else if (time > 2) {
+        asteroidPositions[2] += ASTEROID_FALL;
+        asteroidPositions[3] += ASTEROID_FALL;
+        if (asteroidPositions[2] > MAX_POS) {
+            asteroidPositions[2] -= ASTEROID_FALL * TEN;
+            asteroidPositions[3] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[2]).appendChild(asteroid3);
-        document.getElementById(startPosition[3]).appendChild(asteroid4);   
+        document.getElementById(asteroidPositions[2]).appendChild(asteroid3);
+        document.getElementById(asteroidPositions[3]).appendChild(asteroid4);   
     }
-    if (clickCounter === 3) {
-        document.getElementById(startPosition[4]).appendChild(asteroid5);
-        document.getElementById(startPosition[5]).appendChild(asteroid6);
-    } else if (clickCounter > 3) {
-        startPosition[4] += ASTEROID_FALL;
-        startPosition[5] += ASTEROID_FALL;
-        if (startPosition[4] > MAX_POS) {
-            startPosition[4] -= ASTEROID_FALL * TEN;
-            startPosition[5] -= ASTEROID_FALL * TEN;
+    if (time === 3) {
+        document.getElementById(asteroidPositions[4]).appendChild(asteroid5);
+        document.getElementById(asteroidPositions[5]).appendChild(asteroid6);
+    } else if (time > 3) {
+        asteroidPositions[4] += ASTEROID_FALL;
+        asteroidPositions[5] += ASTEROID_FALL;
+        if (asteroidPositions[4] > MAX_POS) {
+            asteroidPositions[4] -= ASTEROID_FALL * TEN;
+            asteroidPositions[5] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[4]).appendChild(asteroid5);
-        document.getElementById(startPosition[5]).appendChild(asteroid6);   
+        document.getElementById(asteroidPositions[4]).appendChild(asteroid5);
+        document.getElementById(asteroidPositions[5]).appendChild(asteroid6);   
     }
-    if (clickCounter === 4) {
-        document.getElementById(startPosition[6]).appendChild(asteroid7);
-        document.getElementById(startPosition[7]).appendChild(asteroid8);
-    } else if (clickCounter > 4) {
-        startPosition[6] += ASTEROID_FALL;
-        startPosition[7] += ASTEROID_FALL;
-        if (startPosition[6] > MAX_POS) {
-            startPosition[6] -= ASTEROID_FALL * TEN;
-            startPosition[7] -= ASTEROID_FALL * TEN;
+    if (time === 4) {
+        document.getElementById(asteroidPositions[6]).appendChild(asteroid7);
+        document.getElementById(asteroidPositions[7]).appendChild(asteroid8);
+    } else if (time > 4) {
+        asteroidPositions[6] += ASTEROID_FALL;
+        asteroidPositions[7] += ASTEROID_FALL;
+        if (asteroidPositions[6] > MAX_POS) {
+            asteroidPositions[6] -= ASTEROID_FALL * TEN;
+            asteroidPositions[7] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[6]).appendChild(asteroid7);
-        document.getElementById(startPosition[7]).appendChild(asteroid8);   
+        document.getElementById(asteroidPositions[6]).appendChild(asteroid7);
+        document.getElementById(asteroidPositions[7]).appendChild(asteroid8);   
     }
-    if (clickCounter === 5) {
-        document.getElementById(startPosition[8]).appendChild(asteroid9);
-        document.getElementById(startPosition[9]).appendChild(asteroid10);
-        document.getElementById(startPosition[10]).appendChild(asteroid21);
-    } else if (clickCounter > 5) {
-        startPosition[8] += ASTEROID_FALL;
-        startPosition[9] += ASTEROID_FALL;
-        startPosition[10] += ASTEROID_FALL;
-        if (startPosition[8] > MAX_POS) {
-            startPosition[8] -= ASTEROID_FALL * TEN;
-            startPosition[9] -= ASTEROID_FALL * TEN;
-            startPosition[10] -= ASTEROID_FALL * TEN;
+    if (time === 5) {
+        document.getElementById(asteroidPositions[8]).appendChild(asteroid9);
+        document.getElementById(asteroidPositions[9]).appendChild(asteroid10);
+        document.getElementById(asteroidPositions[10]).appendChild(asteroid21);
+    } else if (time > 5) {
+        asteroidPositions[8] += ASTEROID_FALL;
+        asteroidPositions[9] += ASTEROID_FALL;
+        asteroidPositions[10] += ASTEROID_FALL;
+        if (asteroidPositions[8] > MAX_POS) {
+            asteroidPositions[8] -= ASTEROID_FALL * TEN;
+            asteroidPositions[9] -= ASTEROID_FALL * TEN;
+            asteroidPositions[10] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[8]).appendChild(asteroid9);
-        document.getElementById(startPosition[9]).appendChild(asteroid10);
-        document.getElementById(startPosition[10]).appendChild(asteroid21);   
+        document.getElementById(asteroidPositions[8]).appendChild(asteroid9);
+        document.getElementById(asteroidPositions[9]).appendChild(asteroid10);
+        document.getElementById(asteroidPositions[10]).appendChild(asteroid21);   
     }
-    if (clickCounter === 6) {
-        document.getElementById(startPosition[11]).appendChild(asteroid11);
-        document.getElementById(startPosition[12]).appendChild(asteroid12);
-        document.getElementById(startPosition[13]).appendChild(asteroid22);
-    } else if (clickCounter > 6) {
-        startPosition[11] += ASTEROID_FALL;
-        startPosition[12] += ASTEROID_FALL;
-        startPosition[13] += ASTEROID_FALL;
-        if (startPosition[11] > MAX_POS) {
-            startPosition[11] -= ASTEROID_FALL * TEN;
-            startPosition[12] -= ASTEROID_FALL * TEN;
-            startPosition[13] -= ASTEROID_FALL * TEN;
+    if (time === 6) {
+        document.getElementById(asteroidPositions[11]).appendChild(asteroid11);
+        document.getElementById(asteroidPositions[12]).appendChild(asteroid12);
+        document.getElementById(asteroidPositions[13]).appendChild(asteroid22);
+    } else if (time > 6) {
+        asteroidPositions[11] += ASTEROID_FALL;
+        asteroidPositions[12] += ASTEROID_FALL;
+        asteroidPositions[13] += ASTEROID_FALL;
+        if (asteroidPositions[11] > MAX_POS) {
+            asteroidPositions[11] -= ASTEROID_FALL * TEN;
+            asteroidPositions[12] -= ASTEROID_FALL * TEN;
+            asteroidPositions[13] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[11]).appendChild(asteroid11);
-        document.getElementById(startPosition[12]).appendChild(asteroid12);
-        document.getElementById(startPosition[13]).appendChild(asteroid22);     
+        document.getElementById(asteroidPositions[11]).appendChild(asteroid11);
+        document.getElementById(asteroidPositions[12]).appendChild(asteroid12);
+        document.getElementById(asteroidPositions[13]).appendChild(asteroid22);     
     }
-    if (clickCounter === 7) {
-        document.getElementById(startPosition[14]).appendChild(asteroid13);
-        document.getElementById(startPosition[15]).appendChild(asteroid14);
-    } else if (clickCounter > 7) {
-        startPosition[14] += ASTEROID_FALL;
-        startPosition[15] += ASTEROID_FALL;
-        if (startPosition[14] > MAX_POS) {
-            startPosition[14] -= ASTEROID_FALL * TEN;
-            startPosition[15] -= ASTEROID_FALL * TEN;
+    if (time === 7) {
+        document.getElementById(asteroidPositions[14]).appendChild(asteroid13);
+        document.getElementById(asteroidPositions[15]).appendChild(asteroid14);
+    } else if (time > 7) {
+        asteroidPositions[14] += ASTEROID_FALL;
+        asteroidPositions[15] += ASTEROID_FALL;
+        if (asteroidPositions[14] > MAX_POS) {
+            asteroidPositions[14] -= ASTEROID_FALL * TEN;
+            asteroidPositions[15] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[14]).appendChild(asteroid13);
-        document.getElementById(startPosition[15]).appendChild(asteroid14);   
+        document.getElementById(asteroidPositions[14]).appendChild(asteroid13);
+        document.getElementById(asteroidPositions[15]).appendChild(asteroid14);   
     }
-    if (clickCounter === 8) {
-        document.getElementById(startPosition[16]).appendChild(asteroid15);
-        document.getElementById(startPosition[17]).appendChild(asteroid16);
-    } else if (clickCounter > 8) {
-        startPosition[16] += ASTEROID_FALL;
-        startPosition[17] += ASTEROID_FALL;
-        if (startPosition[16] > MAX_POS) {
-            startPosition[16] -= ASTEROID_FALL * TEN;
-            startPosition[17] -= ASTEROID_FALL * TEN;
+    if (time === 8) {
+        document.getElementById(asteroidPositions[16]).appendChild(asteroid15);
+        document.getElementById(asteroidPositions[17]).appendChild(asteroid16);
+    } else if (time > 8) {
+        asteroidPositions[16] += ASTEROID_FALL;
+        asteroidPositions[17] += ASTEROID_FALL;
+        if (asteroidPositions[16] > MAX_POS) {
+            asteroidPositions[16] -= ASTEROID_FALL * TEN;
+            asteroidPositions[17] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[16]).appendChild(asteroid15);
-        document.getElementById(startPosition[17]).appendChild(asteroid16);   
+        document.getElementById(asteroidPositions[16]).appendChild(asteroid15);
+        document.getElementById(asteroidPositions[17]).appendChild(asteroid16);   
     }
-    if (clickCounter === 9) {
-        document.getElementById(startPosition[18]).appendChild(asteroid17);
-        document.getElementById(startPosition[19]).appendChild(asteroid18);
-    } else if (clickCounter > 9) {
-        startPosition[18] += ASTEROID_FALL;
-        startPosition[19] += ASTEROID_FALL;
-        if (startPosition[18] > MAX_POS) {
-            startPosition[18] -= ASTEROID_FALL * TEN;
-            startPosition[19] -= ASTEROID_FALL * TEN;
+    if (time === 9) {
+        document.getElementById(asteroidPositions[18]).appendChild(asteroid17);
+        document.getElementById(asteroidPositions[19]).appendChild(asteroid18);
+    } else if (time > 9) {
+        asteroidPositions[18] += ASTEROID_FALL;
+        asteroidPositions[19] += ASTEROID_FALL;
+        if (asteroidPositions[18] > MAX_POS) {
+            asteroidPositions[18] -= ASTEROID_FALL * TEN;
+            asteroidPositions[19] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[18]).appendChild(asteroid17);
-        document.getElementById(startPosition[19]).appendChild(asteroid18);   
+        document.getElementById(asteroidPositions[18]).appendChild(asteroid17);
+        document.getElementById(asteroidPositions[19]).appendChild(asteroid18);   
     }
-    if (clickCounter === 10) {
-        document.getElementById(startPosition[20]).appendChild(asteroid19);
-        document.getElementById(startPosition[21]).appendChild(asteroid20);
-    } else if (clickCounter > 10) {
-        startPosition[20] += ASTEROID_FALL;
-        startPosition[21] += ASTEROID_FALL;
-        if (startPosition[20] > MAX_POS) {
-            startPosition[20] -= ASTEROID_FALL * TEN;
-            startPosition[21] -= ASTEROID_FALL * TEN;
+    if (time === 10) {
+        document.getElementById(asteroidPositions[20]).appendChild(asteroid19);
+        document.getElementById(asteroidPositions[21]).appendChild(asteroid20);
+    } else if (time > 10) {
+        asteroidPositions[20] += ASTEROID_FALL;
+        asteroidPositions[21] += ASTEROID_FALL;
+        if (asteroidPositions[20] > MAX_POS) {
+            asteroidPositions[20] -= ASTEROID_FALL * TEN;
+            asteroidPositions[21] -= ASTEROID_FALL * TEN;
         }
-        document.getElementById(startPosition[20]).appendChild(asteroid19);
-        document.getElementById(startPosition[21]).appendChild(asteroid20);   
+        document.getElementById(asteroidPositions[20]).appendChild(asteroid19);
+        document.getElementById(asteroidPositions[21]).appendChild(asteroid20);   
     }
 }
 
+
+function checkCollision() {    
+    for (let i = 0; i < asteroidPositions.length; ++i) {       
+        if (asteroidPositions[i] === jetLocation) {            
+            clearInterval(intervalID);
+            document.getElementById("playerPoints").innerHTML = `You scored 
+            ${time} points`;
+            time = 0;
+        }
+    }
+}
