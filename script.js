@@ -1,22 +1,8 @@
-const SCREEN_WIDTH = window.screen.width;
 const MAX_LEFT = 151;
 const MAX_RIGHT = 165;
 const ASTEROID_FALL = 15;
 const MAX_POS = 165;
 const TEN = 10;
-
-function adjustZoom() {  
-    let zoomLevel = 1; 
-    if (SCREEN_WIDTH < 1280) {
-        zoomLevel = 0.75; 
-    } else if (SCREEN_WIDTH < 768) {
-        zoomLevel = 0.50;
-    }
-    document.body.style.transform = `scale(${zoomLevel})`;
-    document.body.style.transformOrigin = '0 0';
-}
-
-window.onload = adjustZoom;
 
 let jetLocation = 158;
 let fighterJet = document.createElement("img");
@@ -136,6 +122,11 @@ let asteroid22 = document.createElement("img");
 asteroid22.style.width = "50px"; 
 asteroid22.style.height = "50px";
 asteroid22.src = "asteroid-icon-flat-style-vector.jpg";
+
+let explosion = document.createElement("img");
+explosion.style.width = "50px"; 
+explosion.style.height = "50px";
+explosion.src = "explosion-vector-13.jpg";
 
 let asteroidPositions = [8, 14, 4, 11, 2, 6, 9, 12, 1, 5, 7, 8, 10, 15, 3, 13, 5
     , 11, 7, 9, 2, 14];
@@ -295,11 +286,12 @@ function asteoridShower() {
     }
 }
 
-
 function checkCollision() {    
     for (let i = 0; i < asteroidPositions.length; ++i) {       
         if (asteroidPositions[i] === jetLocation) {            
             clearInterval(intervalID);
+            document.getElementById(asteroidPositions[i]).innerHTML = " ";
+            document.getElementById(asteroidPositions[i]).appendChild(explosion);
             document.getElementById("playerPoints").innerHTML = `You scored 
             ${time} points`;
             time = 0;
