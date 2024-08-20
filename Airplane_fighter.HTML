@@ -16,13 +16,15 @@
     </style>
 </head>
 
-  <body>
+  <body>    
     <div class="container">
-        <h1 id="playerPoints"></h1>
+        <button class="btn btn-primary" id="StartButton" onclick="startAndHide()">Start game</button>
     </div>
     <div class="container">
-        <button class="btn btn-primary" onclick="startTimer()">Start game</button>
-        <button class="btn btn-primary" onclick="window.location.reload()">Reload page</button>
+        <button class="btn btn-primary" id="ReloadPageButton" onclick="window.location.reload()">Reload page</button>
+    </div>
+    <div class="container">
+        <h1 id="playerPoints"></h1>
     </div>
     <div class="container">
         <h1 id="Time"></h1>
