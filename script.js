@@ -96,7 +96,7 @@ let asteroidSets = [[asteroid1, asteroid2], [asteroid3, asteroid4], [asteroid5,
     asteroid11, asteroid12, asteroid22], [asteroid13, asteroid14], [asteroid15,
     asteroid16], [asteroid17, asteroid18], [asteroid19, asteroid20]];  
 
-function asteoridShower() {
+function asteroidShower() {
     let positionSetsActive = time;
     for (let i = 0; i < positionSetsActive; ++i) {        
         for (let j = 0; j < asteroidPositionSets[i].length; ++j) {                      
@@ -131,7 +131,7 @@ let intervalID;
 function increaseTime() {    
     ++time;
     document.getElementById("Time").innerHTML = time;
-    asteoridShower();
+    asteroidShower();
 }
     
 function startTimer() {
