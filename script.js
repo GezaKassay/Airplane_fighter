@@ -13,37 +13,6 @@ setImageSize();
 let explosion = document.createElement("img");
 explosion.src = "Assets//explosion-vector-13.jpg";
 
-function setImageSize() {
-    let images = document.querySelectorAll("img");
-    images.forEach((image) => {
-        image.style.width = "50px"; 
-        image.style.height = "50px";
-    });
-}
-
-window.addEventListener("keydown", function (moveJet) {
-    if (moveJet.defaultPrevented) {
-        return;
-    }  
-    switch (moveJet.key) {      
-        case "ArrowLeft":
-            if (jetLocation > MAX_LEFT) {
-                --jetLocation;
-                document.getElementById(jetLocation).appendChild(fighterJet);
-            }        
-            break;
-        case "ArrowRight":
-            if (jetLocation < MAX_RIGHT) {
-                ++jetLocation;
-                document.getElementById(jetLocation).appendChild(fighterJet);
-            }
-            break;
-        default:
-            return;
-    }  
-    moveJet.preventDefault();
-}, true);
-
 let asteroidPositionSets = [[-7, -1], [-11, -4], [-13, -9], [-6, -3], [-14, -10, 
     -8], [-7, -5, 0], [-12, -2], [-10, -4], [-8, -6], [-13, -1]];
 let asteroidSets = [['asteroid1', 'asteroid2'], ['asteroid3', 'asteroid4'], [
@@ -92,6 +61,37 @@ function checkCollision(location) {
     time = 0;
     document.getElementById("ReloadPageButton").style.visibility = "visible";           
 }
+
+function setImageSize() {
+    let images = document.querySelectorAll("img");
+    images.forEach((image) => {
+        image.style.width = "50px"; 
+        image.style.height = "50px";
+    });
+}
+
+window.addEventListener("keydown", function (moveJet) {
+    if (moveJet.defaultPrevented) {
+        return;
+    }  
+    switch (moveJet.key) {      
+        case "ArrowLeft":
+            if (jetLocation > MAX_LEFT) {
+                --jetLocation;
+                document.getElementById(jetLocation).appendChild(fighterJet);
+            }        
+            break;
+        case "ArrowRight":
+            if (jetLocation < MAX_RIGHT) {
+                ++jetLocation;
+                document.getElementById(jetLocation).appendChild(fighterJet);
+            }
+            break;
+        default:
+            return;
+    }  
+    moveJet.preventDefault();
+}, true);
 
 let time = 0;
 let intervalID;
