@@ -10,21 +10,6 @@ fighterJet.src = "Assets//vector-fighter-jet-icon-design.jpg";
 document.getElementById(jetLocation).appendChild(fighterJet);
 setImageSize();
 
-let asteroids = ['asteroid1', 'asteroid2', 'asteroid3', 'asteroid4', 'asteroid5'
-    , 'asteroid6', 'asteroid7', 'asteroid8', 'asteroid9', 'asteroid10', 
-    'asteroid11', 'asteroid12', 'asteroid13', 'asteroid14', 'asteroid15', 
-    'asteroid16', 'asteroid17', 'asteroid18', 'asteroid19', 'asteroid20', 
-    'asteroid21', 'asteroid22'];
-
-for (let i = 0; i < asteroids.length; ++i) {
-    let img = document.createElement("img");
-    img.id = asteroids[i];
-    img.src = "Assets//asteroid-icon-flat-style-vector.jpg";
-    img.style.visibility = "hidden";    
-    document.body.appendChild(img);
-    setImageSize();
-}
-
 let explosion = document.createElement("img");
 explosion.src = "Assets//explosion-vector-13.jpg";
 
@@ -61,10 +46,22 @@ window.addEventListener("keydown", function (moveJet) {
 
 let asteroidPositionSets = [[-7, -1], [-11, -4], [-13, -9], [-6, -3], [-14, -10, 
     -8], [-7, -5, 0], [-12, -2], [-10, -4], [-8, -6], [-13, -1]];
-let asteroidSets = [['asteroid1', 'asteroid2'], ['asteroid3', 'asteroid4'], ['asteroid5', 
-    'asteroid6'], ['asteroid7', 'asteroid8'], ['asteroid9', 'asteroid10', 'asteroid21'], [
-    'asteroid11', 'asteroid12', 'asteroid22'], ['asteroid13', 'asteroid14'], ['asteroid15',
-    'asteroid16'], ['asteroid17', 'asteroid18'], ['asteroid19', 'asteroid20']];  
+let asteroidSets = [['asteroid1', 'asteroid2'], ['asteroid3', 'asteroid4'], [
+    'asteroid5', 'asteroid6'], ['asteroid7', 'asteroid8'], ['asteroid9',
+    'asteroid10', 'asteroid21'], ['asteroid11', 'asteroid12', 'asteroid22'], [
+    'asteroid13', 'asteroid14'], ['asteroid15', 'asteroid16'], ['asteroid17', 
+    'asteroid18'], ['asteroid19', 'asteroid20']]; 
+
+for (let i = 0; i < asteroidSets.length; ++i) {    
+    for (let j = 0; j < asteroidSets[i].length; ++j) {
+        let img = document.createElement("img");
+        img.id = asteroidSets[i][j];
+        img.src = "Assets//asteroid-icon-flat-style-vector.jpg";
+        img.style.visibility = "hidden";    
+        document.body.appendChild(img);
+        setImageSize();
+    }
+}
 
 function asteroidShower() {
     let positionSetsActive = time;
@@ -74,7 +71,8 @@ function asteroidShower() {
             if (asteroidPositionSets[i][j] > MAX_POS) {
                 asteroidPositionSets[i][j] -= ASTEROID_FALL * TEN;                             
             }
-            document.getElementById(asteroidSets[i][j]).style.visibility = "visible";          
+            document.getElementById(asteroidSets[i][j]).style.visibility = 
+            "visible";          
             document.getElementById(asteroidPositionSets[i][j])
             .appendChild(document.getElementById(asteroidSets[i][j]));               
             if (asteroidPositionSets[i][j] === jetLocation) {
