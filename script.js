@@ -70,28 +70,19 @@ function setImageSize() {
     });
 }
 
-window.addEventListener("keydown", function (moveJet) {
-    if (moveJet.defaultPrevented) {
-        return;
-    }  
-    switch (moveJet.key) {      
-        case "ArrowLeft":
-            if (jetLocation > MAX_LEFT) {
-                --jetLocation;
-                document.getElementById(jetLocation).appendChild(fighterJet);
-            }        
-            break;
-        case "ArrowRight":
-            if (jetLocation < MAX_RIGHT) {
-                ++jetLocation;
-                document.getElementById(jetLocation).appendChild(fighterJet);
-            }
-            break;
-        default:
-            return;
-    }  
-    moveJet.preventDefault();
-}, true);
+window.addEventListener("keydown", function (moveJet) {         
+    if (moveJet.code === "ArrowLeft") {
+        if (jetLocation > MAX_LEFT) {
+            --jetLocation;
+            document.getElementById(jetLocation).appendChild(fighterJet);
+        }      
+    } else if (moveJet.code === "ArrowRight") {
+        if (jetLocation < MAX_RIGHT) {
+            ++jetLocation;
+            document.getElementById(jetLocation).appendChild(fighterJet);
+        } 
+    }     
+});
 
 let time = 0;
 let intervalID;
