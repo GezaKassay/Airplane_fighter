@@ -32,8 +32,14 @@ for (let i = 0; i < asteroidSets.length; ++i) {
     }
 }
 
-function asteroidShower() {
-    let positionSetsActive = time;
+let positionSetsActive = 1;
+let prevTime = 0;
+
+function asteroidShower() {    
+    if (time - prevTime === 12) {
+        ++positionSetsActive;
+        prevTime = time - 1;
+    }
     for (let i = 0; i < positionSetsActive; ++i) {        
         for (let j = 0; j < asteroidPositionSets[i].length; ++j) {                      
             asteroidPositionSets[i][j] += ASTEROID_FALL;                            
